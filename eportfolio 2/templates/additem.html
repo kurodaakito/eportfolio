@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% from "base_form.html" import render_field %}
+
+{% block title %}新規学習履歴登録 - eポートフォリオ{% endblock %}
+
+{% block content %}
+  <h1>新しい学習履歴を登録</h1>
+
+  <!-- 学習履歴登録フォーム -->
+  <form method="POST">
+    {{ form.hidden_tag() }}
+
+    {{ render_field(form.title) }}
+    {{ render_field(form.content) }}
+    {{ render_field(form.category) }}    
+  
+
+    <!-- ボタン -->
+    <div class="form-group">
+      {{ form.submit(class="btn btn-primary") }}
+      <a href="{{ url_for('index') }}" class="btn btn-default">キャンセル</a>
+    </div>
+  </form>
+{% endblock %}

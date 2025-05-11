@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% from "base_form.html" import render_field %}
+
+{% block title %}ログイン - eポートフォリオ{% endblock %}
+
+{% block content %}
+  <h1>ログイン</h1>
+
+  <!-- ログインフォーム -->
+  <form method="POST">
+    {{ form.hidden_tag() }}
+
+    {{ render_field(form.username) }}
+    {{ render_field(form.password) }}
+
+    <!-- ボタン -->
+    <div class="form-group">
+      {{ form.submit(class="btn btn-primary") }}
+      <a href="{{ url_for('index') }}" class="btn btn-default">キャンセル</a>
+    </div>
+  </form>
+
+  <!-- ユーザー登録へのリンク -->
+  <p>アカウントがない場合は、<a href="{{ url_for('register') }}">ユーザー登録</a>へ。</p>
+{% endblock %}

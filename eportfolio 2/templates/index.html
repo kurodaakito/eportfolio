@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block title %}ホーム - eポートフォリオ{% endblock %}
+
+{% block content %}
+  <h1>学習履歴一覧</h1>
+
+  <!-- 学習履歴のリスト -->
+  {% if records %}
+    <ul class="list-group">
+      {% for record in records %}
+        <li class="list-group-item">
+          <h4>{{ record.title }} {% if current_user.role == 'teacher' %} - {{ record.username }}さん{% endif %}</h4>
+          <p>{{ record.content }}</p>
+          <p>カテゴリ: {{ record.category }}</p>
+          <small>登録日: {{ record.created_at }}</small>
+
+          {% if record.teacher_comment %}
+            <div class="panel panel-default">
+              <div class="panel-heading">教員からのコメント</div>
+              <div class="panel-body">
+                {{ record.teacher_comment }}
+              </div>
+            </div>
+          {% endif %}
+
+          {% if current_user.role == 'teacher' %}
+            <a href="{{ url_for('add_comment', record_id=record.id) }}" class="btn btn-sm btn-primary">コメントを追加</a>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>まだ学習履歴がありません。</p>
+  {% endif %}
+{% endblock %}

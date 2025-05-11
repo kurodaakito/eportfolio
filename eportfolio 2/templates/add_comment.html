@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% from "base_form.html" import render_field %}
+
+{% block title %}コメント追加 - eポートフォリオ{% endblock %}
+
+{% block content %}
+  <h1>{{ record.username }}さんの学習記録へのコメント</h1>
+
+  <h3>{{ record.title }}</h3>
+  <p>{{ record.content }}</p>
+  <small>登録日: {{ record.created_at }}</small>
+
+  <!-- コメントフォーム -->
+  <form method="POST">
+    {{ form.hidden_tag() }}
+
+    {{ render_field(form.teacher_comment) }}
+
+    <!-- ボタン -->
+    <div class="form-group">
+      {{ form.submit(class="btn btn-primary") }}
+      <a href="{{ url_for('index') }}" class="btn btn-default">キャンセル</a>
+    </div>
+  </form>
+{% endblock %}

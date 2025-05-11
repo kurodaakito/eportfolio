@@ -1,0 +1,30 @@
+<!-- templates/thread_list.html -->
+{% extends "layout.html" %}
+
+{% block title %}スレッド一覧{% endblock %}
+
+{% block content %}
+  <h2>スレッド一覧</h2>
+
+  <!-- 教員の場合、新しいスレッド作成へのリンクを表示 -->
+  {% if current_user.role == 'teacher' %}
+    <a href="{{ url_for('create_thread') }}" class="btn btn-success">新しいスレッドを作成</a>
+    <hr>
+  {% endif %}
+
+  <!-- スレッドのリストを表示 -->
+  <ul class="list-group">
+    {% for thread in threads %}
+      <li class="list-group-item">
+        <a href="{{ url_for('thread_detail', thread_id=thread.id) }}">
+          {{ thread.title }}
+        </a>
+        
+
+        <small>コース: {{ thread.course_name }}</small>
+      </li>
+    {% else %}
+      <li class="list-group-item">スレッドがありません。</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

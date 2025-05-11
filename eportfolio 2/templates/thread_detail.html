@@ -1,0 +1,47 @@
+<!-- templates/thread_detail.html -->
+{% extends "layout.html" %}
+
+{% block title %}{{ thread.title }}{% endblock %}
+
+{% block content %}
+  <h2>{{ thread.title }}</h2>
+  <p>コース: {{ thread.course_name }}</p>
+  <hr>
+
+  <!-- 投稿一覧 -->
+  <h3>投稿一覧</h3>
+  <ul class="list-group">
+    {% for post in posts %}
+      <li class="list-group-item">
+        <p>{{ post.content | nl2br }}</p>
+        <small>投稿日時: {{ post.created_at }}</small>
+      </li>
+    {% else %}
+      <li class="list-group-item">投稿がありません。</li>
+    {% endfor %}
+  </ul>
+
+  <hr>
+
+  <!-- 新規投稿フォーム -->
+  <h3>新規投稿</h3>
+  <form method="POST" action="{{ url_for('thread_detail', thread_id=thread.id) }}">
+    {{ form.hidden_tag() }}
+
+    <!-- 投稿内容入力欄 -->
+    <div class="form-group">
+      {{ form.content.label(class="control-label") }}
+      {{ form.content(class="form-control", rows="5") }}
+      {% if form.content.errors %}
+        <ul class="text-danger">
+          {% for error in form.content.errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+
+    <!-- 送信ボタン -->
+    {{ form.submit(class="btn btn-primary") }}
+  </form>
+{% endblock %}

@@ -1,0 +1,40 @@
+<!-- templates/create_thread.html -->
+{% extends "layout.html" %}
+
+{% block title %}スレッド作成{% endblock %}
+
+{% block content %}
+  <h2>スレッド作成</h2>
+  <form method="POST" action="{{ url_for('create_thread') }}">
+    {{ form.hidden_tag() }}
+
+    <!-- タイトル入力欄 -->
+    <div class="form-group">
+      {{ form.title.label(class="control-label") }}
+      {{ form.title(class="form-control") }}
+      {% if form.title.errors %}
+        <ul class="text-danger">
+          {% for error in form.title.errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+
+    <!-- コース選択欄 -->
+    <div class="form-group">
+      {{ form.course_id.label(class="control-label") }}
+      {{ form.course_id(class="form-control") }}
+      {% if form.course_id.errors %}
+        <ul class="text-danger">
+          {% for error in form.course_id.errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+
+    <!-- 送信ボタン -->
+    {{ form.submit(class="btn btn-primary") }}
+  </form>
+{% endblock %}
